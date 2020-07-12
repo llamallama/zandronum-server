@@ -30,6 +30,10 @@ spec:
     spec:
       imagePullSecrets:
         - name: docker-hub
+      volumes:
+      - name: zandronum-server
+        persistentVolumeClaim:
+          claimName: pipeline-nextcloud
       containers:
         - name: send
           image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
@@ -39,3 +43,7 @@ spec:
             hostPort: 10666
             name: 10666tcp106660
             protocol: UDP
+          volumeMounts:
+          - mountPath: /data
+            name: zandronum-server
+            subPath: wads
