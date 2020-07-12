@@ -25,6 +25,8 @@ COPY docker-files/GeoLite2-Country.mmdb "$INSTALL_DIR/GeoIP.dat"
 ENV ZANDRONUM_UID= \
     ZANDRONUM_GID=
 
+# Config files
+COPY ./servers/configs /configs
 # Entrypoint
 COPY ./docker-files/entrypoint.sh /
 RUN chmod +x /entrypoint.sh
