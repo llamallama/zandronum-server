@@ -34,6 +34,8 @@ spec:
       - name: zandronum-server
         persistentVolumeClaim:
           claimName: pipeline-nextcloud
+      strategy:
+        type: Recreate
       nodeName: rancherkube1-worker1
       containers:
         - name: send
