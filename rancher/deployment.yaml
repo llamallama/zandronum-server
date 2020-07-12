@@ -20,6 +20,8 @@ metadata:
     app: zandronum-server
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: zandronum-server
@@ -34,8 +36,6 @@ spec:
       - name: zandronum-server
         persistentVolumeClaim:
           claimName: pipeline-nextcloud
-      strategy:
-        type: Recreate
       nodeName: rancherkube1-worker1
       containers:
         - name: send
