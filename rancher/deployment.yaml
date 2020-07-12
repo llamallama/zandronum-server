@@ -8,9 +8,10 @@ spec:
     app: zandronum-server
   type: ClusterIp
   ports:
-    - port: 10666
-      protocol: UDP
-      targetPort: 10666
+  - name: 10666tcp106660-zandronum-server
+    port: 10666
+    protocol: UDP
+    targetPort: 10666
 ---
 apiVersion: apps/v1
 kind: Deployment
