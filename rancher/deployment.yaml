@@ -34,6 +34,7 @@ spec:
       - name: zandronum-server
         persistentVolumeClaim:
           claimName: pipeline-nextcloud
+      nodeName: rancherkube1-worker1
       containers:
         - name: send
           image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
