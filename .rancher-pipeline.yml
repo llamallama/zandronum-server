@@ -20,4 +20,10 @@ branch:
   include:
   - chris-master
   - master
-notification: {}
+notification:
+  recipients:
+  - recipient: '#doom_deploy'
+    notifier: c-scfks:n-b5wqf
+  condition:
+  - Success
+  - Failed
