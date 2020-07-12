@@ -9,7 +9,6 @@ spec:
   type: ClusterIp
   ports:
     - port: 10666
-      hostPort: 10666
       protocol: UDP
       targetPort: 10666
 ---
@@ -42,6 +41,9 @@ spec:
           image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
           ports:
           - containerPort: 10666
+            hostPort: 10666
+            name: 10666tcp106660
+            protocol: UDP
         volumeMounts:
         - mountPath: /data
           name: zandronum-server
