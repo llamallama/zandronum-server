@@ -10,15 +10,15 @@ then
   exit 1
 fi
 
-serverFolder='servers'      # Containers the folder the server configs live in
+configsFolder='configs'      # Containers the folder the server configs live in
 currentServerFile='current' # The file containing the name of the server folder
 paramsFile='params'         # The file that contains the zandronum server params
 
 # Get the current server folder from currentServerFile
-currentServer="$(cat "${serverFolder}/${mode}/${currentServerFile}")"
+currentServer="$(cat "${configsFolder}/${mode}/${currentServerFile}")"
 
 # Create the full path to the params file
-paramsFilePath="${serverFolder}/${mode}/${currentServer}/${paramsFile}"
+paramsFilePath="${configsFolder}/${mode}/${currentServer}/${paramsFile}"
 
 # Source the paramaters array from the params file
 source "$paramsFilePath"

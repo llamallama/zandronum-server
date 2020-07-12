@@ -8,5 +8,5 @@ services:
     network_mode: host
     volumes:
     - ./data:/data:ro
-    - ./:/servers:ro
+    - ./configs:/configs:ro
     command: coop
