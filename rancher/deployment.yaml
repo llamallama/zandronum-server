@@ -6,9 +6,10 @@ metadata:
 spec:
   selector:
     app: zandronum-server
-  type: HostPort
+  type: ClusterIp
   ports:
     - port: 10666
+      hostPort: 10666
       protocol: UDP
       targetPort: 10666
 ---
