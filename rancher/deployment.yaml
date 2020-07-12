@@ -1,0 +1,47 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: zandronum-server
+spec:
+  selector:
+    app: zandronum-server
+  type: HostPort
+  ports:
+    - port: 10666
+      protocol: UDP
+      targetPort: 10666
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zandronum-server
+  labels:
+    app: zandronum-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zandronum-server
+  template:
+    metadata:
+      labels:
+        app: zandronum-server
+    spec:
+      imagePullSecrets:
+        - name: docker-hub
+      volumes:
+      - name: zandronum-server
+        persistentVolumeClaim:
+          claimName: pipeline-nextcloud
+      containers:
+      - args:
+        - coop
+        - name: zandronum-server
+          image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+          ports:
+          - containerPort: 10666
+        volumeMounts:
+        - mountPath: /data
+          name: zandronum-server
+          subPath: wads
