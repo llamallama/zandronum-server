@@ -6,6 +6,18 @@ services:
     image: zandronum-server
     restart: always
     network_mode: host
+    ports:
+    - 10666:10666/udp
     volumes:
     - ./data:/data:ro
     command: coop
+  invasion:
+    build: ../
+    image: zandronum-server
+    restart: always
+    network_mode: host
+    ports:
+    - 10667:10667/udp
+    volumes:
+    - ./data:/data:ro
+    command: invasion
