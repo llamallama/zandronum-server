@@ -33,6 +33,8 @@ spec:
       containers:
         - name: send
           image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+          args: ["coop"]
+          - coop
           ports:
           - containerPort: 10666
             hostPort: 10666
