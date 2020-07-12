@@ -7,6 +7,14 @@ stages:
       tag: llamallama/zandronum-server:${CICD_EXECUTION_SEQUENCE}
       pushRemote: true
       registry: index.docker.io
+- name: Deploy
+  steps:
+  - applyYamlConfig:
+      path: ./rancher/deployment.yaml
+  when:
+    branch:
+      include:
+      - master
 timeout: 60
 branch:
   include:
