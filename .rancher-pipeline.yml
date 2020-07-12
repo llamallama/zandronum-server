@@ -26,4 +26,5 @@ notification:
     notifier: c-scfks:n-b5wqf
   condition:
   - Success
+  - Changed
   - Failed
