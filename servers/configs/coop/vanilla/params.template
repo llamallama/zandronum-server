@@ -1,0 +1,7 @@
+params=(
+  -port 10666
+  -iwad /data/DOOM2.WAD
+  +exec /configs/global/global.cfg
+  +exec /configs/coop/${CURRENT_SERVER}/server.cfg
+  +exec /configs/coop/${CURRENT_SERVER}/maps.cfg
+)
