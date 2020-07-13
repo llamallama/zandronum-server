@@ -13,19 +13,6 @@ spec:
       claimName: pipeline-nextcloud
   nodeName: rancherkube1-worker1
   containers:
-    env:
-      - name: JOIN_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            key: JOIN_PASSWORD
-            name: doom
-            optional: false
-      - name: RCON_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            key: RCON_PASSWORD
-            name: doom
-            optional: false
     - name: zandonum-server-coop
       image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
       args: ["coop"]
@@ -33,6 +20,19 @@ spec:
       - mountPath: /data
         name: zandronum-server
         subPath: wads
+      env:
+        - name: JOIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: JOIN_PASSWORD
+              name: doom
+              optional: false
+        - name: RCON_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: RCON_PASSWORD
+              name: doom
+              optional: false
 ---
 apiVersion: v1
 kind: Pod
@@ -48,19 +48,6 @@ spec:
       claimName: pipeline-nextcloud
   nodeName: rancherkube1-worker2
   containers:
-    env:
-      - name: JOIN_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            key: JOIN_PASSWORD
-            name: doom
-            optional: false
-      - name: RCON_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            key: RCON_PASSWORD
-            name: doom
-            optional: false
     - name: zandonum-server-invasion
       image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
       args: ["invasion"]
@@ -68,3 +55,16 @@ spec:
       - mountPath: /data
         name: zandronum-server
         subPath: wads
+      env:
+        - name: JOIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: JOIN_PASSWORD
+              name: doom
+              optional: false
+        - name: RCON_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: RCON_PASSWORD
+              name: doom
+              optional: false
