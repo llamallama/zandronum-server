@@ -10,7 +10,7 @@ stages:
 - name: Deploy
   steps:
   - applyYamlConfig:
-      path: ./rancher/deployment.yaml
+      path: ./rancher/pod-deploy.yaml
   when:
     branch:
       include:
