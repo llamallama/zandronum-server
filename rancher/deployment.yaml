@@ -2,10 +2,10 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: zandronum-server
+  name: zandronum-server-coop
 spec:
   selector:
-    app: zandronum-server
+    app: zandronum-server-coop
   type: ClusterIP
   ports:
     - port: 10666
@@ -15,20 +15,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: zandronum-server
+  name: zandronum-server-coop
   labels:
-    app: zandronum-server
+    app: zandronum-server-coop
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      app: zandronum-server
+      app: zandronum-server-coop
   template:
     metadata:
       labels:
-        app: zandronum-server
+        app: zandronum-server-coop
     spec:
       imagePullSecrets:
         - name: docker-hub
@@ -45,6 +45,58 @@ spec:
           - containerPort: 10666
             hostPort: 10666
             name: 10666tcp106660
+            protocol: UDP
+          volumeMounts:
+          - mountPath: /data
+            name: zandronum-server
+            subPath: wads
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: zandronum-server-invasion
+spec:
+  selector:
+    app: zandronum-server-invasion
+  type: ClusterIP
+  ports:
+    - port: 10667
+      protocol: TCP
+      targetPort: 10667
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zandronum-server-invasion
+  labels:
+    app: zandronum-server-invasion
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: zandronum-server-invasion
+  template:
+    metadata:
+      labels:
+        app: zandronum-server-invasion
+    spec:
+      imagePullSecrets:
+        - name: docker-hub
+      volumes:
+      - name: zandronum-server
+        persistentVolumeClaim:
+          claimName: pipeline-nextcloud
+      nodeName: rancherkube1-worker2
+      containers:
+        - name: send
+          image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+          args: ["invasion"]
+          ports:
+          - containerPort: 10667
+            hostPort: 10667
+            name: 10667tcp106670
             protocol: UDP
           volumeMounts:
           - mountPath: /data
