@@ -1,7 +1,7 @@
 set sv_broadcast 0
 set sv_updatemaster 1
 set sv_enforcemasterbanlist true
-set sv_password ${joinPassword}
-set sv_rconpassword ${rconPassword}
+set sv_password ${JOIN_PASSWORD}
+set sv_rconpassword ${RCON_PASSWORD}
 set sv_forcepassword true
 set sv_markchatlines true
