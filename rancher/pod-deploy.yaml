@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: Pod
 metadata:
@@ -19,6 +20,33 @@ spec:
       - containerPort: 10666
         hostPort: 10666
         name: 10666tcp106660
+        protocol: UDP
+      volumeMounts:
+      - mountPath: /data
+        name: zandronum-server
+        subPath: wads
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: zandonum-server-invasion
+spec:
+  hostNetwork: true
+  imagePullSecrets:
+    - name: docker-hub
+  volumes:
+  - name: zandronum-server
+    persistentVolumeClaim:
+      claimName: pipeline-nextcloud
+  nodeName: rancherkube1-worker1
+  containers:
+    - name: zandonum-server-invasion
+      image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+      args: ["coop"]
+      ports:
+      - containerPort: 10667
+        hostPort: 10667
+        name: 10667tcp106670
         protocol: UDP
       volumeMounts:
       - mountPath: /data
