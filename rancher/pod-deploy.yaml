@@ -42,7 +42,7 @@ spec:
   containers:
     - name: zandonum-server-invasion
       image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
-      args: ["coop"]
+      args: ["invasion"]
       ports:
       - containerPort: 10667
         hostPort: 10667
