@@ -16,11 +16,6 @@ spec:
     - name: zandonum-server-coop
       image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
       args: ["coop"]
-      ports:
-      - containerPort: 10666
-        hostPort: 10666
-        name: 10666tcp106660
-        protocol: UDP
       volumeMounts:
       - mountPath: /data
         name: zandronum-server
@@ -43,11 +38,6 @@ spec:
     - name: zandonum-server-invasion
       image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
       args: ["invasion"]
-      ports:
-      - containerPort: 10667
-        hostPort: 10667
-        name: 10667tcp106670
-        protocol: UDP
       volumeMounts:
       - mountPath: /data
         name: zandronum-server
