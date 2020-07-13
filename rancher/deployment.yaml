@@ -38,7 +38,7 @@ spec:
           claimName: pipeline-nextcloud
       nodeName: rancherkube1-worker1
       containers:
-        - name: send
+        - name: zandonum-server-coop
           image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
           args: ["coop"]
           ports:
@@ -90,7 +90,7 @@ spec:
           claimName: pipeline-nextcloud
       nodeName: rancherkube1-worker2
       containers:
-        - name: send
+        - name: zandronum-server-invasion
           image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
           args: ["invasion"]
           ports:
