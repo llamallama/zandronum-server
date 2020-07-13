@@ -1,60 +1,105 @@
 # Zandronum Server Docker Images
 
-Host your Zandronum server using Docker!
+Host your Zandronum server using Docker! Automatically deploy it and configure it with Rancher!
 
-* [Docker Hub](https://hub.docker.com/r/rcdailey/zandronum-server)
-* [Github Repository](https://github.com/rcdailey/zandronum-server)
-
-[![Build Status](https://travis-ci.com/rcdailey/zandronum-server.svg?branch=master)](https://travis-ci.com/rcdailey/zandronum-server)
-
-## Docker Tags
-
-There are various versions and forks of Zandronum available. The tags are in a `<distro>-<version>`
-format. The various distributions are described in the list below. Each distro has a latest tag, in
-the format `<distro>-latest`.
-
-* [**TSPG**](https://bitbucket.org/thesentinelsplayground/zatspg-release)<br>
-  A fork of the official Zandronum code base that is used for servers hosted on [The Sentinel's
-  Playground](https://allfearthesentinel.net/) (TSPG).<br>
-  Tags: `tspg-latest`, `tspg-v12`, etc
-* [**Official**](https://bitbucket.org/Torr_Samaho/zandronum)<br>
-  The unmodified & official version of Zandronum.<br>
-  Tags: `official-latest`, `official-3.0`, etc
+* [Docker Hub](https://hub.docker.com/r/llamallama/zandronum-server)
+* [Github Repository](https://github.com/llamallama/zandronum-server)
 
 ## Installation and Usage
 
-It's recommended to use Docker Compose to configure your Zandronum instance(s). This will allow you
-great flexibility over the configuration of your containers. Below is an example that will help get
-you started on setting up your own server. There isn't one true way to configure things; there's a
-lot of flexibility. But it is easier to start by using this example and then adjusting it as needed.
+This was is a fully functional Zandronum server container built from the official Zandronum repos.
+It was designed with deploying it to Rancher in mind, but can also be deployed using Docker Compose.
+Below is an example that will help get you started on setting up your own server. There isn't one
+true way to configure things; there's a lot of flexibility. But it is easier to start by using this
+example and then adjusting it as needed.
 
 ```yml
 version: '3.7'
 
 services:
-  doom2:
-    image: rcdailey/zandronum-server:official-latest
+  coop:
+    build: ../
+    image: zandronum-server
     restart: always
     network_mode: host
-    command: >
-      -port 10667
-      -iwad /data/doom2.wad
-      -file /data/BD21RC7.pk3
-      -file /data/mapsofchaos-hc.wad
-      -file /data/DoomMetalVol4.wad
-      +exec /configs/global.cfg
-      +exec /configs/coop.cfg
-      +exec /configs/doom2.cfg
+    ports:
+    - 10666:10666/udp
     volumes:
     - ./data:/data:ro
-    - ./configs:/configs:ro
+    command: coop
+    environment:
+      - joinpassword=joinpasswordhere
+      - rconpassword=rconpasswordhere
+  invasion:
+    build: ../
+    image: zandronum-server
+    restart: always
+    network_mode: host
+    ports:
+    - 10667:10667/udp
+    volumes:
+    - ./data:/data:ro
+    command: invasion
+    environment:
+      - joinpassword=joinpasswordhere
+      - rconpassword=rconpasswordhere
 ```
 
-Customization of your Zandronum instance will be done through a combination of command arguments and
-configuration files. Use the `>` character (as shown above) after the `command:` property to allow
-your list of options to be on multiple lines for readability.
+Customization of your Zandronum instances will be done through a combination of command arguments
+and configuration files. In the example above note `coop` and `invasion` after the `command:`
+property.  Those correspond to folders in the [servers/configs](servers/configs) directory. The
+directory structure looks like this:
 
-For more examples, see the `examples` directory in this repository.
+```
+servers/configs/
+├── coop
+│   ├── brutal
+│   │   ├── maps.cfg
+│   │   ├── params.template
+│   │   └── server.cfg
+│   └── current
+├── global
+│   └── global.cfg.template
+└── invasion
+    ├── armageddon_samsara
+    │   ├── maps.cfg
+    │   ├── params.template
+    │   └── server.cfg
+    └── current
+```
+
+Given this example, here is how you create your own setup.
+1. Create a game mode folder inside of [servers/configs](servers/configs). Use something like `coop`,
+   `invasion`, or `deathmatch`. For the rest of this example we'll use
+   [servers/configs/coop](servers/configs/coop).
+2. Create a configuration folder inside of the game mode folder. You can create as many as you like.
+   This example is using [servers/configs/coop/brutal](servers/configs/coop/brutal).
+3. Place your config files inside of that configuration folder.
+4. Next to those, create a file called `params.template`. It should look something like this.
+```
+params=(
+  -port 10666
+  -iwad /data/DOOM2.WAD
+  -file /data/brutalv21.pk3
+  +exec /configs/global/global.cfg
+  +exec /configs/coop/${CURRENT_SERVER}/server.cfg
+  +exec /configs/coop/${CURRENT_SERVER}/maps.cfg
+)
+```
+5. Edit the `current` file in the game mode folder. For example,
+   [servers/configs/coop/current](servers/configs/coop/current).  This will only contain one line
+   and one word, the name of the configuration folder to use. Using this, you can switch between
+   multiple setups in the game mode folder.
+6. Add your wads to the `servers/data` directory.
+7. Run `docker-compose up` to test.
+8. (Optional) push your changes to your own copy of this repo to trigger CI/CD through Rancher.
+
+
+## Rancher
+
+[.rancher-pipeline.yml](.rancher-pipeline.yml) exists to set up Rancher's CI/CD tool. That, coupled
+with either of the deployment files in [rancher](rancher), provide an automated way of changing the
+configuration of and redeploying your Doom servers.
 
 ## Networking
 
@@ -91,6 +136,8 @@ If you change the port, make sure you map that to the host. Using the example ab
     - 10667:10667/udp
 ```
 
+Be sure to update your `params.template` and Rancher deployment files as well.
+
 #### IP Address
 
 It's worth noting that in bridge network mode, the IP address that Zandronum is listening on is
@@ -106,15 +153,11 @@ important, please use `host` for your `network_mode:` setting.
 Put all your WAD files (PWAD + IWAD) in a directory and map that as a volume into the container. You
 can put it anywhere. In my case, I mounted my WAD directory to `/data` in the container.
 
-From there, provide the path to the main IWAD by using the `-iwad` option. Specify the `-file`
-argument one or more times to add more PWADs to your server (such as the Brutal Doom mod). Depending
-on how you mapped your volumes, you may specify individual PWAD files:
+In `params.template`, provide the path to the main IWAD by using the `-iwad` option. Specify the
+`-file` argument one or more times to add more PWADs to your server (such as the Brutal Doom mod).
+Depending on how you mapped your volumes, you may specify individual PWAD files:
 
     -file /data/mywad.pk3
-
-Or you can use wildcards to tell Zandronum to load all PWAD files in that directory:
-
-    -file /data/*
 
 ## User & Group
 
@@ -146,7 +189,7 @@ environment:
 ```
 
 Or you can map these to environment variables you defined in your `~/.bashrc`, for example (based on
-Ubuntu 18.04):
+Ubuntu 20.04):
 
 ```bash
 export UID
@@ -163,17 +206,16 @@ environment:
 
 ## Configuration Files
 
-For in-depth configuration, especially related to controlling how gameplay will work on your server,
+For in-depth configuration, especially related to controlling how game play will work on your server,
 you should provide configuration files. How you structure these files and how they are named are up
-to you. I personally choose the `.cfg` extension. I also like to have my config files mounted in a
-different volume and directory than my WAD files, which is why in this example I have a `/configs`
-mount (for only `.cfg` files) and a `/data` mount where I keep all my WAD files.
+to you. I personally choose the `.cfg` extension. The docker build process copies the config files
+in `servers/configs` to `/configs` in the container.
 
 I'll provide the contents of the config files I used in the above example. Some of these you will
 want, such as the master server list configuration. But mostly this is meant to give you some ideas
 on how to set up your server.
 
-### `/configs/global.cfg`
+### `/servers/configs/global/global.cfg`
 
 This is the configuration I give to *all* of my servers, regardless of their purpose.
 
@@ -181,16 +223,24 @@ This is the configuration I give to *all* of my servers, regardless of their pur
 set sv_broadcast 0
 set sv_updatemaster 1
 set sv_enforcemasterbanlist true
+set sv_password ${JOIN_PASSWORD}
+set sv_rconpassword ${RCON_PASSWORD}
+set sv_forcepassword true
 set sv_markchatlines true
-set masterhostname "master.zandronum.com:15300"
 ```
 
-### `/configs/coop.cfg`
+Notice the `sv_password` and `sv_rconpassword` values. They get replaced with the contents of the
+environment variables `JOIN_PASSWORD` and `RCON_PASSWORD`. Those can either be set via Docker
+Compose or in your Rancher deployment. I'm using Kubernetes secrets to fill those in for security.
 
-I keep my cooperative gameplay settings in its own config file. This allows me to share these
-settings between multiple server instances (I run more than one server from Docker Compose).
+### `/servers/configs/coop/brutal/server.cfg`
+
+I keep my cooperative game play settings in its own config file. This one is isolated to the Brutal
+Doom setup.
 
 ```
+set sv_hostname "My Doom Server Title Here"
+
 set sv_maxplayers 8
 set sv_maxclients 8
 set sv_unblockplayers 1
@@ -199,6 +249,7 @@ set sv_coop_losekeys 0
 set sv_coop_loseweapons 0
 set sv_coop_loseammo 0
 set sv_sharekeys 1
+set sv_infiniteammo 1
 
 set skill 3
 set cooperative 1
@@ -206,16 +257,14 @@ set teamdamage 0
 set compatflags 620756992
 ```
 
-### `/configs/doom2.cfg`
+### `/servers/configs/coop/brutal/maps.cfg`
 
-This last config is dedicated to just the doom2 service in my `docker-compose.yml`, which represents
-a single server instance:
+This last config is configures the maps.
 
 ```
-set sv_hostname "This is the DOOM2 Server"
-set sv_maprotation true
-set sv_randommaprotation 1
-set sv_samelevel false
+sv_maprotation true
+sv_randommaprotation 1
+sv_samelevel false
 
 addmap MAP01
 addmap MAP02
@@ -226,11 +275,5 @@ addmap MAP05
 
 ## Building the Images
 
-The `Dockerfile` takes two arguments when you run `docker build` (provided via the `--build-arg`
-option):
-
-* `REPO_URL`<br>
-  The Mercurial repository URL (HTTPS only) of the Zandronum code base. This can be the official
-  repo or a compatible fork.
-* `REPO_TAG`<br>
-  The tag in the repository to clone & build.
+This can be done from `docker build` in the root of the directory or`docker-compose build` in the
+`/servers` directory.
