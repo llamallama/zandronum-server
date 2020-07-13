@@ -5,4 +5,3 @@ set sv_password ${JOIN_PASSWORD}
 set sv_rconpassword ${RCON_PASSWORD}
 set sv_forcepassword true
 set sv_markchatlines true
-set sv_showlauncherqueries 1
