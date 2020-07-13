@@ -1,0 +1,10 @@
+params=(
+  -port 10666
+  -iwad /data/DOOM2.WAD
+  -file /data/brutalv21.pk3
+  -file /data/hellonearthstarterpack.wad
+  -file /data/ExtraTextures.wad
+  +exec /configs/global/global.cfg
+  +exec /configs/coop/${CURRENT_SERVER}/server.cfg
+  +exec /configs/coop/${CURRENT_SERVER}/maps.cfg
+)
