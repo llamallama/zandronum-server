@@ -16,10 +16,15 @@ currentServerFile='current' # The file containing the name of the server folder
 paramsFile='params'         # The file that contains the zandronum server params
 
 # Get the current server folder from currentServerFile
-currentServer="$(cat "${configsFolder}/${mode}/${currentServerFile}")"
+export CURRENT_SERVER="$(cat "${configsFolder}/${mode}/${currentServerFile}")"
 
 # Create the full path to the params file
-paramsFilePath="${configsFolder}/${mode}/${currentServer}/${paramsFile}"
+paramsFilePath="${configsFolder}/${mode}/${CURRENT_SERVER}/${paramsFile}"
+
+# Replaces ${CURRENT_SERVER} in the params file
+# with the name of the current server folder
+envsubst < "${paramsFilePath}.template" \
+         > "${paramsFilePath}"
 
 # Source the paramaters array from the params file
 source "$paramsFilePath"
