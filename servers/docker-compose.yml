@@ -11,6 +11,9 @@ services:
     volumes:
     - ./data:/data:ro
     command: coop
+    environment:
+      - joinpassword=joinpasswordhere
+      - rconpassword=rconpasswordhere
   invasion:
     build: ../
     image: zandronum-server
@@ -21,3 +24,6 @@ services:
     volumes:
     - ./data:/data:ro
     command: invasion
+    environment:
+      - joinpassword=joinpasswordhere
+      - rconpassword=rconpasswordhere

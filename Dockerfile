@@ -4,6 +4,7 @@ RUN apt-get update \
     && apt-get install -qq --no-install-recommends \
       wget \
       gnupg \
+      gettext-base \
       gosu \
       tini \
     && wget -O - http://debian.drdteam.org/drdteam.gpg | apt-key add - \

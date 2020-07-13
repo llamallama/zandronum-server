@@ -10,7 +10,8 @@ then
   exit 1
 fi
 
-configsFolder='configs'      # Containers the folder the server configs live in
+configsFolder='configs'     # Contains the folder the server configs live in
+globalConfigFolder='global' # Contains global configs
 currentServerFile='current' # The file containing the name of the server folder
 paramsFile='params'         # The file that contains the zandronum server params
 
@@ -22,6 +23,10 @@ paramsFilePath="${configsFolder}/${mode}/${currentServer}/${paramsFile}"
 
 # Source the paramaters array from the params file
 source "$paramsFilePath"
+
+# Sets passwords in the global config from env vars
+envsubst < "${configsFolder}/${globalConfigFolder}/global.cfg.template" \
+         > "${configsFolder}/${globalConfigFolder}/global.cfg"
 
 # Do not allow container to be started as non-root user
 if (( "$(id -u)" != 0 )); then

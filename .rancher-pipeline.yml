@@ -12,9 +12,7 @@ stages:
   - applyYamlConfig:
       path: ./rancher/pod-deploy.yaml
   when:
-    branch:
-      include:
-      - master
+    branch: {}
 timeout: 60
 branch:
   include:
@@ -22,7 +20,7 @@ branch:
   - master
 notification:
   recipients:
-  - recipient: '#doom_deploy'
+  - recipient: '#server_updates'
     notifier: c-scfks:n-b5wqf
   condition:
   - Success
