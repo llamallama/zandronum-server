@@ -1,5 +1,7 @@
 # Zandronum Server Docker Images
 
+Credit goes to https://github.com/rcdailey/zandronum-server for providing an excellent start point for this project.
+
 Host your Zandronum server using Docker! Automatically deploy it and configure it with Rancher!
 
 * [Docker Hub](https://hub.docker.com/r/llamallama/zandronum-server)
