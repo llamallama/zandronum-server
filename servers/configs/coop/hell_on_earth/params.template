@@ -4,6 +4,7 @@ params=(
   -file /data/brutalv21.pk3
   -file /data/hellonearthstarterpack.wad
   -file /data/ExtraTextures.wad
+  -file /data/hpbar-v16c.pk3
   +exec /configs/global/global.cfg
   +exec /configs/coop/${CURRENT_SERVER}/server.cfg
   +exec /configs/coop/${CURRENT_SERVER}/maps.cfg
