@@ -10,7 +10,7 @@ stages:
 - name: Deploy
   steps:
   - applyYamlConfig:
-      path: ./rancher/pod-deploy.yaml
+      path: ./rancher/deployment.yaml
   when:
     branch: {}
 timeout: 60

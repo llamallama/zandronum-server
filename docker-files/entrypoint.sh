@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -eu
+set -exu
 
 # "coop", "deathmatch", or "invasion"
 mode="${1:-}"

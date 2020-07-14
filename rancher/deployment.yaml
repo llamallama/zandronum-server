@@ -30,6 +30,7 @@ spec:
       labels:
         app: zandronum-server-coop
     spec:
+      hostNetwork: true
       imagePullSecrets:
         - name: docker-hub
       volumes:
@@ -41,6 +42,19 @@ spec:
         - name: zandonum-server-coop
           image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
           args: ["coop"]
+          env:
+            - name: JOIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: JOIN_PASSWORD
+                  name: doom
+                  optional: false
+            - name: RCON_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: RCON_PASSWORD
+                  name: doom
+                  optional: false
           ports:
           - containerPort: 10666
             hostPort: 10666
@@ -82,6 +96,7 @@ spec:
       labels:
         app: zandronum-server-invasion
     spec:
+      hostNetwork: true
       imagePullSecrets:
         - name: docker-hub
       volumes:
@@ -93,6 +108,19 @@ spec:
         - name: zandronum-server-invasion
           image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
           args: ["invasion"]
+          env:
+            - name: JOIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: JOIN_PASSWORD
+                  name: doom
+                  optional: false
+            - name: RCON_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: RCON_PASSWORD
+                  name: doom
+                  optional: false
           ports:
           - containerPort: 10667
             hostPort: 10667
