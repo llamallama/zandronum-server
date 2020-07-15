@@ -41,6 +41,7 @@ spec:
       containers:
         - name: zandonum-server-coop
           image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+          imagePullPolicy: Always
           args: ["coop"]
           env:
             - name: JOIN_PASSWORD
@@ -107,6 +108,7 @@ spec:
       containers:
         - name: zandronum-server-invasion
           image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+          imagePullPolicy: Always
           args: ["invasion"]
           env:
             - name: JOIN_PASSWORD
