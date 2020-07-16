@@ -12,8 +12,8 @@ services:
     - ./data:/data:ro
     command: coop
     environment:
-      - joinpassword=joinpasswordhere
-      - rconpassword=rconpasswordhere
+      - JOIN_PASSWORD=joinpasswordhere
+      - RCON_PASSWORD=rconpasswordhere
   invasion:
     build: ../
     image: zandronum-server
@@ -25,5 +25,18 @@ services:
     - ./data:/data:ro
     command: invasion
     environment:
-      - joinpassword=joinpasswordhere
-      - rconpassword=rconpasswordhere
+      - JOIN_PASSWORD=joinpasswordhere
+      - RCON_PASSWORD=rconpasswordhere
+  survival:
+    build: ../
+    image: zandronum-server
+    restart: always
+    network_mode: host
+    ports:
+    - 10668:10668/udp
+    volumes:
+    - ./data:/data:ro
+    command: survival
+    environment:
+      - JOIN_PASSWORD=joinpasswordhere
+      - RCON_PASSWORD=rconpasswordhere

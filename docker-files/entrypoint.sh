@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-set -exu
+set -eu
 
 # "coop", "deathmatch", or "invasion"
-mode="${1:-}"
+export MODE="${1:-}"
 
-if [[ -z "$mode" ]]
+if [[ -z "${MODE}" ]]
 then
   echo "mode parameter is required"
   exit 1
@@ -16,13 +16,12 @@ currentServerFile='current' # The file containing the name of the server folder
 paramsFile='params'         # The file that contains the zandronum server params
 
 # Get the current server folder from currentServerFile
-export CURRENT_SERVER="$(cat "${configsFolder}/${mode}/${currentServerFile}")"
+export CURRENT_SERVER="$(cat "${configsFolder}/${MODE}/${currentServerFile}")"
 
 # Create the full path to the params file
-paramsFilePath="${configsFolder}/${mode}/${CURRENT_SERVER}/${paramsFile}"
+paramsFilePath="${configsFolder}/${MODE}/${CURRENT_SERVER}/${paramsFile}"
 
-# Replaces ${CURRENT_SERVER} in the params file
-# with the name of the current server folder
+# Replaces ${CURRENT_SERVER} and ${MODE} in the params file
 envsubst < "${paramsFilePath}.template" \
          > "${paramsFilePath}"
 

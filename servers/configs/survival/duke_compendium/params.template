@@ -1,10 +1,11 @@
 params=(
   -port 10666
   -iwad /data/DOOM2.WAD
-  -file /data/brutalv21.pk3
-  -file /data/hellonearthstarterpack.wad
-  -file /data/ExtraTextures.wad
-  -file /data/hpbar-v16c.pk3
+  -file /data/compendium-v1-zan.pk3
+  -file /data/unrealtex.pk3
+  -file /data/dukenukem3d_v10b.pk3
+  -file /data/complex-blood.pk3
+  -file /data/newtextcolours_260.pk3
   +exec /configs/global/global.cfg
   +exec /configs/${MODE}/${CURRENT_SERVER}/server.cfg
   +exec /configs/${MODE}/${CURRENT_SERVER}/maps.cfg
