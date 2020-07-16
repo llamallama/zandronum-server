@@ -2,10 +2,10 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: zandronum-server-coop
+  name: zandronum-server1
 spec:
   selector:
-    app: zandronum-server-coop
+    app: zandronum-server2
   type: ClusterIP
   ports:
     - port: 10666
@@ -15,20 +15,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: zandronum-server-coop
+  name: zandronum-server1
   labels:
-    app: zandronum-server-coop
+    app: zandronum-server1
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      app: zandronum-server-coop
+      app: zandronum-server1
   template:
     metadata:
       labels:
-        app: zandronum-server-coop
+        app: zandronum-server1
     spec:
       hostNetwork: true
       imagePullSecrets:
@@ -39,10 +39,10 @@ spec:
           claimName: pipeline-nextcloud
       nodeName: rancherkube1-worker1
       containers:
-        - name: zandonum-server-coop
+        - name: zandonum-server1
           image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
           imagePullPolicy: Always
-          args: ["coop"]
+          args: ["survival"]
           env:
             - name: JOIN_PASSWORD
               valueFrom:
@@ -69,10 +69,10 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: zandronum-server-invasion
+  name: zandronum-server2
 spec:
   selector:
-    app: zandronum-server-invasion
+    app: zandronum-server2
   type: ClusterIP
   ports:
     - port: 10667
@@ -82,20 +82,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: zandronum-server-invasion
+  name: zandronum-server2
   labels:
-    app: zandronum-server-invasion
+    app: zandronum-server2
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      app: zandronum-server-invasion
+      app: zandronum-server2
   template:
     metadata:
       labels:
-        app: zandronum-server-invasion
+        app: zandronum-server2
     spec:
       hostNetwork: true
       imagePullSecrets:
@@ -106,7 +106,7 @@ spec:
           claimName: pipeline-nextcloud
       nodeName: rancherkube1-worker2
       containers:
-        - name: zandronum-server-invasion
+        - name: zandronum-server2
           image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
           imagePullPolicy: Always
           args: ["invasion"]
