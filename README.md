@@ -84,8 +84,8 @@ params=(
   -iwad /data/DOOM2.WAD
   -file /data/brutalv21.pk3
   +exec /configs/global/global.cfg
-  +exec /configs/coop/${CURRENT_SERVER}/server.cfg
-  +exec /configs/coop/${CURRENT_SERVER}/maps.cfg
+  +exec /configs/${MODE}/${CURRENT_SERVER}/server.cfg
+  +exec /configs/${MODE}/${CURRENT_SERVER}/maps.cfg
 )
 ```
 5. Edit the `current` file in the game mode folder. For example,
