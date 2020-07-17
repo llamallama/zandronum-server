@@ -6,6 +6,7 @@ params=(
   -file /data/dukenukem3d_v10b.pk3
   -file /data/complex-blood.pk3
   -file /data/newtextcolours_260.pk3
+  -file /data/hpbar-v21-cdi_1.2.pk3
   +exec /configs/global/global.cfg
   +exec /configs/${MODE}/${CURRENT_SERVER}/server.cfg
   +exec /configs/${MODE}/${CURRENT_SERVER}/maps.cfg
