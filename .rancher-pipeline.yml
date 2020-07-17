@@ -18,11 +18,3 @@ branch:
   include:
   - chris-master
   - master
-notification:
-  recipients:
-  - recipient: '#server_updates'
-    notifier: c-scfks:n-b5wqf
-  condition:
-  - Success
-  - Changed
-  - Failed
