@@ -4,7 +4,7 @@ params=(
   -file /data/compendium-v1-zan.pk3
   -file /data/unrealtex.pk3
   -file /data/dukenukem3d_v10b.pk3
-  -file /data/complex-blood.pk3
+  -file /data/ketchupV5_nogibs_splattersonly.pk3
   -file /data/newtextcolours_260.pk3
   -file /data/hpbar-v21-cdi_1.2.pk3
   +exec /configs/global/global.cfg
