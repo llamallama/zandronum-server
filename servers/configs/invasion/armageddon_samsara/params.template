@@ -4,6 +4,7 @@ params=(
   -file /data/skulltag_content-3.0-beta01.pk3
   -file /data/armageddon2v63.pk3
   -file /data/samsara-v0.31-beta.pk3
+  -file /data/complex-blood.pk3
   +exec /configs/global/global.cfg
   +exec /configs/${MODE}/${CURRENT_SERVER}/server.cfg
   +exec /configs/${MODE}/${CURRENT_SERVER}/maps.cfg
