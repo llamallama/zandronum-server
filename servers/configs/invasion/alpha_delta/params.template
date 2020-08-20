@@ -1,0 +1,13 @@
+params=(
+  -port 10667
+  -iwad /data/DOOM2.WAD
+  -file /data/skulltag_actors.pk3
+  -file /data/skulltag_data.pk3
+  -file /data/dtinv3c.pk3
+  -file /data/dtinv3-m.pk3
+  -file /data/hpbar-v21-cdi_1.2.pk3
+  +exec /configs/global/global.cfg
+  +exec /configs/${MODE}/${CURRENT_SERVER}/server.cfg
+  +exec /configs/${MODE}/${CURRENT_SERVER}/maps.cfg
+)
+
