@@ -5,7 +5,6 @@ params=(
   -file /data/skulltag_data.pk3
   -file /data/dtinv3c.pk3
   -file /data/dtinv3-m.pk3
-  -file /data/brutalv21.pk3
   -file /data/hpbar-v21-cdi_1.2.pk3
   +exec /configs/global/global.cfg
   +exec /configs/${MODE}/${CURRENT_SERVER}/server.cfg
