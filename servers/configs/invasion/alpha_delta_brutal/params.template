@@ -1,8 +1,7 @@
 params=(
   -port 10667
   -iwad /data/DOOM2.WAD
-  -file /data/skulltag_actors.pk3
-  -file /data/skulltag_data.pk3
+  -file /data/skulltag_content-3.0-beta01.pk3
   -file /data/dtinv3c.pk3
   -file /data/dtinv3-m.pk3
   -file /data/combined_arms_v1.4.pk3
