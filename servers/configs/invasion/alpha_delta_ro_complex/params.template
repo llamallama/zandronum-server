@@ -1,0 +1,21 @@
+params=(
+  -port 10667
+  -iwad /data/DOOM2.WAD
+  -file /data/ro_pb_2.4_zan3.0_fixed.pk3
+  -file /data/skulltag_content-3.0-beta01.pk3
+  -file /data/skulltag_98a_announcer.pk3
+  -file /data/complex-doom.v26a2.pk3
+  -file /data/lca-v1.5.8.pk3
+  -file /data/randommons-v1.1.4.pk3
+  -file /data/lca-ark-1.7.5.pk3
+  -file /data/insanelca-v1.5.pk3
+  -file /data/complex-lca-rm-haf-russianoverkill-v13.pk3
+  -file /data/complex-russianoverkill-ark-patch-v10.pk3
+  -file /data/complex-russianoverkill-ilca-patch-v6.pk3
+  -file /data/dtinv3c.pk3
+  -file /data/hpbar-v21-cdi_1.2.pk3
+  +exec /configs/global/global.cfg
+  +exec /configs/${MODE}/${CURRENT_SERVER}/server.cfg
+  +exec /configs/${MODE}/${CURRENT_SERVER}/maps.cfg
+)
+
