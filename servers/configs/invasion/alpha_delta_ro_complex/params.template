@@ -10,6 +10,8 @@ params=(
   -file /data/lca-ark-1.7.5.pk3
   -file /data/insanelca-v1.5.pk3
   -file /data/complex-lca-rm-haf-russianoverkill-v13.pk3
+  -file /data/complex-russianoverkill-ark-patch-v8.pk3
+  -file /data/complex-russianoverkill-ilca-patch-v6.pk3
   +exec /configs/global/global.cfg
   +exec /configs/${MODE}/${CURRENT_SERVER}/server.cfg
   +exec /configs/${MODE}/${CURRENT_SERVER}/maps.cfg
