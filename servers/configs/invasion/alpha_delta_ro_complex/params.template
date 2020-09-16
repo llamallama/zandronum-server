@@ -1,7 +1,7 @@
 params=(
   -port 10667
   -iwad /data/DOOM2.WAD
-  -file /data/ro_pb_2.2_zan_01.pk3
+  -file /data/ro_pb_2.4_zan3.0_fixed.pk3
   -file /data/skulltag_content-3.0-beta01.pk3
   -file /data/skulltag_98a_announcer.pk3
   -file /data/complex-doom.v26a2.pk3
