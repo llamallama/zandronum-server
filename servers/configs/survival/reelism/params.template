@@ -1,5 +1,5 @@
 params=(
-  -port 10668
+  -port 10666
   -iwad /data/DOOM2.WAD
   -file /data/reelism_x3.1.pk3
   -file /data/hpbar-v21.pk3
