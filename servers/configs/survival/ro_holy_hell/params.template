@@ -4,7 +4,6 @@ params=(
   -file /data/skulltag_98a_announcer.pk3
   -file /data/ro_pb_2.4_zan3.0_r5_stable.pk3
   -file /data/holyhell.wad
-  -file /data/ketchupv5.pk3
   -file /data/hpbar-v21.pk3
   +exec /configs/global/global.cfg
   +exec /configs/${MODE}/${CURRENT_SERVER}/server.cfg
